@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Resources Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .plant-icon {
+            font-size: 3rem;
+            color: #4CAF50;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
+            gap: 20px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(76, 175, 80, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border-color: #4CAF50;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #4CAF50;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #2E7D32;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .download-options {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            background: linear-gradient(45deg, #4CAF50, #66BB6A);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(45deg, #388E3C, #4CAF50);
+            transform: scale(1.05);
+        }
+
+        .coming-soon {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .coming-soon .download-btn {
+            background: linear-gradient(45deg, #9E9E9E, #BDBDBD);
+            cursor: not-allowed;
+        }
+
+        .coming-soon .download-btn:hover {
+            background: linear-gradient(45deg, #9E9E9E, #BDBDBD);
+            transform: none;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .decorative-leaves {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .leaf {
+            position: absolute;
+            color: rgba(76, 175, 80, 0.1);
+            font-size: 2rem;
+            animation: float 15s infinite linear;
+        }
+
+        .leaf:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .leaf:nth-child(2) { left: 20%; animation-delay: 2s; }
+        .leaf:nth-child(3) { left: 30%; animation-delay: 4s; }
+        .leaf:nth-child(4) { left: 40%; animation-delay: 6s; }
+        .leaf:nth-child(5) { left: 50%; animation-delay: 8s; }
+        .leaf:nth-child(6) { left: 60%; animation-delay: 10s; }
+        .leaf:nth-child(7) { left: 70%; animation-delay: 12s; }
+        .leaf:nth-child(8) { left: 80%; animation-delay: 14s; }
+
+        @keyframes float {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(calc(100vh + 100px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="decorative-leaves">
+        <div class="leaf">🌿</div>
+        <div class="leaf">🍃</div>
+        <div class="leaf">🌱</div>
+        <div class="leaf">🌿</div>
+        <div class="leaf">🍃</div>
+        <div class="leaf">🌱</div>
+        <div class="leaf">🌿</div>
+        <div class="leaf">🍃</div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <h1>
+                <span class="plant-icon">🌱</span>
+                Plant Resources Hub
+                <span class="plant-icon">🌿</span>
+            </h1>
+            <p>Download comprehensive plant study materials and resources. Choose from different formats to suit your needs.</p>
+        </header>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>Presentation</h3>
+                <p>Complete presentation materials available in both interactive slideshow and portable document formats.</p>
+                <div class="download-options">
+                    <button class="download-btn" onclick="downloadFile('presentation.pptx')">PPT</button>
+                    <button class="download-btn" onclick="downloadFile('presentation.pdf')">PDF</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📝</div>
+                <h3>Presentation Transcript</h3>
+                <p>Complete written transcript of the presentation content in an editable document format for notes and reference.</p>
+                <div class="download-options">
+                    <button class="download-btn" onclick="downloadFile('transcript.docx')">DOCX</button>
+                </div>
+            </div>
+
+            <div class="card coming-soon">
+                <div class="card-icon">📋</div>
+                <h3>Handout</h3>
+                <p>Supplementary handout materials with key points, summaries, and additional resources for enhanced learning.</p>
+                <div class="download-options">
+                    <button class="download-btn">Coming Soon</button>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>🌿 Plant Resources Hub - Growing Knowledge Together 🌱</p>
+        </footer>
+    </div>
+
+    <script>
+        function downloadFile(filename) {
+            // In a real implementation, you would have actual files hosted
+            // For demo purposes, this creates a placeholder download
+            const link = document.createElement('a');
+            link.href = '#'; // Replace with actual file URLs
+            link.download = filename;
+            
+            // Show feedback to user
+            const originalText = event.target.textContent;
+            event.target.textContent = 'Downloading...';
+            event.target.style.background = 'linear-gradient(45deg, #FF9800, #FFA726)';
+            
+            setTimeout(() => {
+                event.target.textContent = originalText;
+                event.target.style.background = 'linear-gradient(45deg, #4CAF50, #66BB6A)';
+                alert(`Download would start for: ${filename}\n\nTo implement actual downloads, replace the '#' in the href with your actual file URLs.`);
+            }, 1000);
+        }
+
+        function comingSoon() {
+            const messages = [
+                "🌱 New resources are growing!",
+                "🌿 Stay tuned for more plant content!",
+                "🍃 Coming soon - more learning materials!",
+                "🌾 Additional resources in development!"
+            ];
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            alert(randomMessage);
+        }
+
+        // Add some interactivity to the floating leaves
+        document.addEventListener('mousemove', function(e) {
+            const leaves = document.querySelectorAll('.leaf');
+            leaves.forEach((leaf, index) => {
+                const speed = (index + 1) * 0.0001;
+                const x = e.clientX * speed;
+                const y = e.clientY * speed;
+                leaf.style.transform += ` translate(${x}px, ${y}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
