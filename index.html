@@ -295,11 +295,31 @@
     <script>
         async function downloadFile(button, filename) {
             const originalText = button.textContent;
+            const originalBg = button.style.background;
+
             button.disabled = true;
             button.textContent = 'Downloading...';
+            button.style.background = 'linear-gradient(45deg, #FF9800, #FFA726)';
 
             try {
-                // Just trigger direct download (service worker handles headers)
+                // Try fetch so we know when the file is ready, then download via Blob
+                const res = await fetch(filename, { cache: 'no-cache' });
+                if (!res.ok) throw new Error('Download failed');
+
+                const blob = await res.blob();
+                const url = URL.createObjectURL(blob);
+
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = filename.split('/').pop();
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Revoke after a tick so the download is registered
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+            } catch (e) {
+                // Fallback to direct link if fetch is blocked
                 const link = document.createElement('a');
                 link.href = filename;
                 link.download = filename.split('/').pop();
@@ -307,7 +327,9 @@
                 link.click();
                 document.body.removeChild(link);
             } finally {
+                // Always restore the button
                 button.textContent = originalText;
+                button.style.background = originalBg || 'linear-gradient(45deg, #4CAF50, #66BB6A)';
                 button.disabled = false;
             }
         }
@@ -324,10 +346,6 @@
             leaf.style.animationDelay = delay + 's';
             leaf.style.transform = 'scale(' + scale + ')';
         });
-
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js').catch(console.error);
-        }
     </script>
 </body>
 </html>
