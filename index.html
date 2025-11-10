@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0A400C 0%, #328E6E 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -124,21 +124,6 @@
             transform: scale(1.05);
         }
 
-        .coming-soon {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        .coming-soon .download-btn {
-            background: linear-gradient(45deg, #9E9E9E, #BDBDBD);
-            cursor: not-allowed;
-        }
-
-        .coming-soon .download-btn:hover {
-            background: linear-gradient(45deg, #9E9E9E, #BDBDBD);
-            transform: none;
-        }
-
         .footer {
             text-align: center;
             margin-top: 50px;
@@ -227,26 +212,25 @@
                 <h3>Presentation</h3>
                 <p>Complete presentation materials available in both interactive slideshow and portable document formats.</p>
                 <div class="download-options">
-                    <button class="download-btn" onclick="downloadFile('presentation.pptx')">PPT</button>
-                    <button class="download-btn" onclick="downloadFile('presentation.pdf')">PDF</button>
+                    <button class="download-btn" onclick="downloadFile('public/presentation_horsetail_schristensen.pdf')">PDF</button>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-icon">📝</div>
-                <h3>Presentation Transcript</h3>
-                <p>Complete written transcript of the presentation content in an editable document format for notes and reference.</p>
+                <h3>Transcript</h3>
+                <p>Complete written transcript of the presentation content for notes and reference.</p>
                 <div class="download-options">
-                    <button class="download-btn" onclick="downloadFile('transcript.docx')">DOCX</button>
+                    <button class="download-btn" onclick="downloadFile('public/transcript_horsetail_schristensen.pdf')">Download</button>
                 </div>
             </div>
 
-            <div class="card coming-soon">
+            <div class="card">
                 <div class="card-icon">📋</div>
                 <h3>Handout</h3>
                 <p>Supplementary handout materials with key points, summaries, and additional resources for enhanced learning.</p>
                 <div class="download-options">
-                    <button class="download-btn">Coming Soon</button>
+                    <button class="download-btn" onclick="downloadFile('public/handout_horsetail_schristensen.pdf')">Download</button>
                 </div>
             </div>
         </div>
@@ -276,16 +260,6 @@
             }, 1000);
         }
 
-        function comingSoon() {
-            const messages = [
-                "🌱 New resources are growing!",
-                "🌿 Stay tuned for more plant content!",
-                "🍃 Coming soon - more learning materials!",
-                "🌾 Additional resources in development!"
-            ];
-            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-            alert(randomMessage);
-        }
 
         // Add some interactivity to the floating leaves
         document.addEventListener('mousemove', function(e) {
