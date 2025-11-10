@@ -242,21 +242,25 @@
 
     <script>
         function downloadFile(filename) {
-            // In a real implementation, you would have actual files hosted
-            // For demo purposes, this creates a placeholder download
+            // Create a link element and trigger download
             const link = document.createElement('a');
-            link.href = '#'; // Replace with actual file URLs
-            link.download = filename;
+            link.href = filename; // Remove the 'public/' prefix since GitHub Pages serves from root
+            link.download = filename.split('/').pop(); // Extract just the filename
+            link.target = '_blank'; // Open in new tab as fallback
             
             // Show feedback to user
             const originalText = event.target.textContent;
             event.target.textContent = 'Downloading...';
             event.target.style.background = 'linear-gradient(45deg, #FF9800, #FFA726)';
             
+            // Trigger the download
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
             setTimeout(() => {
                 event.target.textContent = originalText;
                 event.target.style.background = 'linear-gradient(45deg, #4CAF50, #66BB6A)';
-                alert(`Download would start for: ${filename}\n\nTo implement actual downloads, replace the '#' in the href with your actual file URLs.`);
             }, 1000);
         }
 
