@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plant Resources Hub</title>
+    <title>GHOSTS: 2025 AAA Annual Meeting
+        November 19-23, New Orleans</title>
     <style>
         * {
             margin: 0;
@@ -11,11 +12,24 @@
             box-sizing: border-box;
         }
 
+        /* Theme palette */
+        :root {
+            --accent-1: #4CAF50;
+            --accent-2: #66BB6A;
+            --accent-3: #2E7D32;
+            --text-on-dark: #E8F5E9;
+            --muted-on-dark: #C8E6C9;
+            --bg-overlay: rgba(10, 64, 12, 0.55);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-border: rgba(76, 175, 80, 0.22);
+            --shadow: 0 8px 32px rgba(0,0,0,0.12);
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Replaced gradient with image + overlay */
+            /* Solid-color overlay over the image */
             background:
-                linear-gradient(rgba(10,64,12,0.82), rgba(50,142,110,0.82)),
+                linear-gradient(var(--bg-overlay), var(--bg-overlay)),
                 url('public/horsetail-collage-website-bkgd.jpg') center / cover fixed no-repeat;
             min-height: 100vh;
             padding: 20px;
@@ -30,13 +44,13 @@
         .header {
             text-align: center;
             margin-bottom: 50px;
-            color: white;
+            color: var(--text-on-dark);
         }
 
         .header h1 {
             font-size: 3rem;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.35);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -44,61 +58,96 @@
         }
 
         .plant-icon {
-            font-size: 3rem;
-            color: #4CAF50;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            color: var(--accent-2);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+        }
+
+        /* New themed heading styles */
+        .session-title {
+            margin: 15px auto 20px;
+            max-width: 900px;
+            font-size: 1.9rem;
+            font-weight: 600;
+            line-height: 1.2;
+            text-align: center;
+            color: var(--text-on-dark);
+            text-shadow: 1px 2px 6px rgba(0,0,0,0.4);
+            position: relative;
+        }
+        .session-title::after {
+            content: "";
+            display: block;
+            width: 140px;
+            height: 4px;
+            margin: 14px auto 0;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            border-radius: 2px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        .event-dates {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--muted-on-dark);
+            text-align: center;
+            margin: 5px 0 5px;
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
         }
 
         .header p {
             font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 600px;
+            opacity: 0.95;
+            color: var(--text-on-dark);
+            max-width: 700px;
             margin: 0 auto;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            text-shadow: 1px 2px 4px rgba(0,0,0,0.25);
         }
 
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
-            gap: 20px;
+            gap: 22px;
             margin-top: 30px;
             justify-content: center;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
+            background: var(--card-bg);
+            border-radius: 16px;
             padding: 20px;
             text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(76, 175, 80, 0.2);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            border: 2px solid var(--card-border);
             backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
         }
 
         .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            border-color: #4CAF50;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+            border-color: var(--accent-1);
         }
 
         .card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: #4CAF50;
+            font-size: 2.4rem;
+            margin-bottom: 14px;
+            color: var(--accent-1);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.12);
         }
 
         .card h3 {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             margin-bottom: 10px;
-            color: #2E7D32;
+            color: var(--accent-3);
+            letter-spacing: 0.2px;
         }
 
         .card p {
-            color: #666;
-            line-height: 1.5;
+            color: #4b5a4f;
+            line-height: 1.55;
             margin-bottom: 15px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
 
         .download-options {
@@ -109,29 +158,44 @@
         }
 
         .download-btn {
-            background: linear-gradient(45deg, #4CAF50, #66BB6A);
+            background: linear-gradient(45deg, var(--accent-1), var(--accent-2));
             color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
+            padding: 9px 18px;
+            border-radius: 22px;
+            font-size: 0.92rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease, filter 0.2s ease, background 0.2s ease;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.6px;
+            box-shadow: 0 6px 16px rgba(76,175,80,0.25);
         }
 
         .download-btn:hover {
-            background: linear-gradient(45deg, #388E3C, #4CAF50);
-            transform: scale(1.05);
+            background: linear-gradient(45deg, #3fa64a, var(--accent-1));
+            transform: translateY(-1px) scale(1.03);
+            filter: saturate(1.05);
+        }
+
+        .download-btn:focus-visible {
+            outline: 3px solid rgba(102,187,106,0.55);
+            outline-offset: 2px;
+        }
+
+        .download-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            filter: grayscale(10%);
         }
 
         .footer {
             text-align: center;
-            margin-top: 50px;
-            color: white;
-            opacity: 0.8;
+            margin-top: 56px;
+            color: var(--muted-on-dark);
+            opacity: 0.95;
+            padding-top: 18px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
         .decorative-leaves {
@@ -147,29 +211,16 @@
 
         .leaf {
             position: absolute;
-            color: rgba(76, 175, 80, 0.1);
+            top: 0;
+            color: rgba(200, 230, 201, 0.6);
             font-size: 2rem;
-            animation: float 15s infinite linear;
+            animation: float 20s linear infinite;
+            will-change: transform;
         }
 
-        .leaf:nth-child(1) { left: 10%; animation-delay: 0s; }
-        .leaf:nth-child(2) { left: 20%; animation-delay: 2s; }
-        .leaf:nth-child(3) { left: 30%; animation-delay: 4s; }
-        .leaf:nth-child(4) { left: 40%; animation-delay: 6s; }
-        .leaf:nth-child(5) { left: 50%; animation-delay: 8s; }
-        .leaf:nth-child(6) { left: 60%; animation-delay: 10s; }
-        .leaf:nth-child(7) { left: 70%; animation-delay: 12s; }
-        .leaf:nth-child(8) { left: 80%; animation-delay: 14s; }
-
         @keyframes float {
-            0% {
-                transform: translateY(-100px) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(calc(100vh + 100px)) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(-110vh); }
+            100% { transform: translateY(110vh); }
         }
 
         @media (max-width: 768px) {
@@ -203,17 +254,21 @@
         <header class="header">
             <h1>
                 <span class="plant-icon">🌱</span>
-                Plant Resources Hub
+                GHOSTS: 2025 AAA Annual Meeting
                 <span class="plant-icon">🌿</span>
             </h1>
-            <p>Download comprehensive plant study materials and resources. Choose from different formats to suit your needs.</p>
+            <h3 class="event-dates">November 19-23, New Orleans</h3>
+            <br>
+            <h2 class="session-title">Healing with Horsetail:<br> Exploring plant kinship through ethnographic art practices</h2>
+
+            <p>FLASH presentation by Sandra Christensen, MEd, PhD
+            <br>10:15-11:45 am on Friday, November 21st, 2025</p>
         </header>
 
         <div class="cards-grid">
             <div class="card">
                 <div class="card-icon">📊</div>
                 <h3>Presentation</h3>
-                <p>Complete presentation materials available in both interactive slideshow and portable document formats.</p>
                 <div class="download-options">
                     <button class="download-btn" onclick="downloadFile(this, 'public/presentation_horsetail_schristensen.pdf')">Download</button>
                 </div>
@@ -222,7 +277,6 @@
             <div class="card">
                 <div class="card-icon">📝</div>
                 <h3>Transcript</h3>
-                <p>Complete written transcript of the presentation content for notes and reference.</p>
                 <div class="download-options">
                     <button class="download-btn" onclick="downloadFile(this, 'public/transcript_horsetail_schristensen.pdf')">Download</button>
                 </div>
@@ -231,16 +285,11 @@
             <div class="card">
                 <div class="card-icon">📋</div>
                 <h3>Handout</h3>
-                <p>Supplementary handout materials with key points, summaries, and additional resources for enhanced learning.</p>
                 <div class="download-options">
                     <button class="download-btn" onclick="downloadFile(this, 'public/handout_horsetail_schristensen.pdf')">Download</button>
                 </div>
             </div>
         </div>
-
-        <footer class="footer">
-            <p>🌿 Plant Resources Hub - Growing Knowledge Together 🌱</p>
-        </footer>
     </div>
 
     <script>
@@ -285,16 +334,17 @@
             }
         }
 
-
-        // Add some interactivity to the floating leaves
-        document.addEventListener('mousemove', function(e) {
-            const leaves = document.querySelectorAll('.leaf');
-            leaves.forEach((leaf, index) => {
-                const speed = (index + 1) * 0.0001;
-                const x = e.clientX * speed;
-                const y = e.clientY * speed;
-                leaf.style.transform += ` translate(${x}px, ${y}px)`;
-            });
+        // Randomize leaves instead of a uniform row
+        const leaves = document.querySelectorAll('.leaf');
+        leaves.forEach(leaf => {
+            const dur = 16 + Math.random() * 14;          // 16s–30s
+            const delay = -Math.random() * dur;           // negative so they start mid-flight
+            const left = Math.random() * 100;             // random horizontal start
+            const scale = 0.6 + Math.random() * 0.9;      // varied size
+            leaf.style.left = left + '%';
+            leaf.style.animationDuration = dur + 's';
+            leaf.style.animationDelay = delay + 's';
+            leaf.style.transform = 'scale(' + scale + ')';
         });
     </script>
 </body>
