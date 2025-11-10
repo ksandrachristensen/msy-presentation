@@ -13,7 +13,10 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0A400C 0%, #328E6E 100%);
+            /* Replaced gradient with image + overlay */
+            background:
+                linear-gradient(rgba(10,64,12,0.82), rgba(50,142,110,0.82)),
+                url('public/horsetail-collage-website-bkgd.jpg') center / cover fixed no-repeat;
             min-height: 100vh;
             padding: 20px;
         }
@@ -212,7 +215,7 @@
                 <h3>Presentation</h3>
                 <p>Complete presentation materials available in both interactive slideshow and portable document formats.</p>
                 <div class="download-options">
-                    <button class="download-btn" onclick="downloadFile('public/presentation_horsetail_schristensen.pdf')">PDF</button>
+                    <button class="download-btn" onclick="downloadFile(this, 'public/presentation_horsetail_schristensen.pdf')">Download</button>
                 </div>
             </div>
 
@@ -221,7 +224,7 @@
                 <h3>Transcript</h3>
                 <p>Complete written transcript of the presentation content for notes and reference.</p>
                 <div class="download-options">
-                    <button class="download-btn" onclick="downloadFile('public/transcript_horsetail_schristensen.pdf')">Download</button>
+                    <button class="download-btn" onclick="downloadFile(this, 'public/transcript_horsetail_schristensen.pdf')">Download</button>
                 </div>
             </div>
 
@@ -230,7 +233,7 @@
                 <h3>Handout</h3>
                 <p>Supplementary handout materials with key points, summaries, and additional resources for enhanced learning.</p>
                 <div class="download-options">
-                    <button class="download-btn" onclick="downloadFile('public/handout_horsetail_schristensen.pdf')">Download</button>
+                    <button class="download-btn" onclick="downloadFile(this, 'public/handout_horsetail_schristensen.pdf')">Download</button>
                 </div>
             </div>
         </div>
@@ -241,27 +244,45 @@
     </div>
 
     <script>
-        function downloadFile(filename) {
-            // Create a link element and trigger download
-            const link = document.createElement('a');
-            link.href = filename; // Remove the 'public/' prefix since GitHub Pages serves from root
-            link.download = filename.split('/').pop(); // Extract just the filename
-            link.target = '_blank'; // Open in new tab as fallback
-            
-            // Show feedback to user
-            const originalText = event.target.textContent;
-            event.target.textContent = 'Downloading...';
-            event.target.style.background = 'linear-gradient(45deg, #FF9800, #FFA726)';
-            
-            // Trigger the download
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            setTimeout(() => {
-                event.target.textContent = originalText;
-                event.target.style.background = 'linear-gradient(45deg, #4CAF50, #66BB6A)';
-            }, 1000);
+        async function downloadFile(button, filename) {
+            const originalText = button.textContent;
+            const originalBg = button.style.background;
+
+            button.disabled = true;
+            button.textContent = 'Downloading...';
+            button.style.background = 'linear-gradient(45deg, #FF9800, #FFA726)';
+
+            try {
+                // Try fetch so we know when the file is ready, then download via Blob
+                const res = await fetch(filename, { cache: 'no-cache' });
+                if (!res.ok) throw new Error('Download failed');
+
+                const blob = await res.blob();
+                const url = URL.createObjectURL(blob);
+
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = filename.split('/').pop();
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Revoke after a tick so the download is registered
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+            } catch (e) {
+                // Fallback to direct link if fetch is blocked
+                const link = document.createElement('a');
+                link.href = filename;
+                link.download = filename.split('/').pop();
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } finally {
+                // Always restore the button
+                button.textContent = originalText;
+                button.style.background = originalBg || 'linear-gradient(45deg, #4CAF50, #66BB6A)';
+                button.disabled = false;
+            }
         }
 
 
